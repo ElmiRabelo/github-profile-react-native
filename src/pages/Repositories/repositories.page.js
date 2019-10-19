@@ -2,7 +2,6 @@ import React from 'react';
 
 import {View, Text, StyleSheet} from 'react-native';
 
-console.tron.log('Será que vai aGORA?? ');
 const Repositories = () => (
   <View style={styles.container}>
     <Text>Repositories Page</Text>

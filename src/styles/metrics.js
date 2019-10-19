@@ -1,0 +1,12 @@
+//Responsavel pela metricas do app, como altura, margins e paddings.
+import {Dimensions} from 'react-native';
+
+const {width, height} = Dimensions.get('window');
+
+export default {
+  baseMargin: 10,
+  basePadding: 20,
+  baseRadius: 3,
+  screenWidht: width < height ? width : height,
+  screenHeight: width < height ? height : width,
+};

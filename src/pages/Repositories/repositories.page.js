@@ -1,19 +1,12 @@
 import React from 'react';
+import {View} from 'react-native';
 
-import {View, Text, StyleSheet} from 'react-native';
+import Header from '../../components/Header/header.component';
 
 const Repositories = () => (
-  <View style={styles.container}>
-    <Text>Repositories Page</Text>
+  <View>
+    <Header title="Repositórios" />
   </View>
 );
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
 
 export default Repositories;

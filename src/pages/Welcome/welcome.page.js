@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 import {
   View,
@@ -14,6 +15,11 @@ import styles, {barColor} from './welcome.styles';
 import api from '../../services/api';
 
 class Welcome extends Component {
+  static propTypes = {
+    navigation: PropTypes.shape({
+      navigate: PropTypes.func,
+    }).isRequired,
+  };
   constructor() {
     super();
     this.state = {

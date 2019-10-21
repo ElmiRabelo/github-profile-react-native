@@ -1,6 +1,13 @@
 import React, {Component} from 'react';
 
-import {View, Text, TextInput, TouchableOpacity, StatusBar} from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StatusBar,
+  ActivityIndicator,
+} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import styles, {barColor} from './welcome.styles';
 
@@ -11,6 +18,8 @@ class Welcome extends Component {
     super();
     this.state = {
       username: '',
+      loading: false,
+      error: false,
     };
   }
 
@@ -27,18 +36,21 @@ class Welcome extends Component {
   signIn = async () => {
     const {username} = this.state;
     const {navigation} = this.props;
+
+    this.setState({loading: true});
+
     try {
       await this.checkUserExists(username);
       await this.saveUser(username);
 
       navigation.navigate('Repositories');
     } catch (err) {
-      console.tron.log('O usuário não existe.');
+      this.setState({loading: false, error: true});
     }
   };
 
   render() {
-    const {username} = this.state;
+    const {username, loading, error} = this.state;
     return (
       <View style={styles.container}>
         <StatusBar barStyle="light-content" backgroundColor={barColor} />
@@ -46,6 +58,8 @@ class Welcome extends Component {
         <Text style={styles.text}>
           Informe o nome do usuário do GitHub para continuar.
         </Text>
+
+        {error && <Text style={styles.error}>O usuário não existe</Text>}
         <View style={styles.form}>
           <TextInput
             style={styles.input}
@@ -56,7 +70,11 @@ class Welcome extends Component {
             onChangeText={evt => this.setState({username: evt})}
           />
           <TouchableOpacity style={styles.button} onPress={this.signIn}>
-            <Text style={styles.buttonText}>Prosseguir</Text>
+            {loading ? (
+              <ActivityIndicator size="small" color="#FFF" />
+            ) : (
+              <Text style={styles.buttonText}>Prosseguir</Text>
+            )}
           </TouchableOpacity>
         </View>
       </View>
